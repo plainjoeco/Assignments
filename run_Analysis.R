@@ -1,24 +1,24 @@
 ##Setting the working directory. Please change as mentioned in README
-setwd("C:\\Users\\bimehta\\Desktop\\R_Prog\\DataClean")
+##setwd("C:\\BigData\\Coursera\\")
 ##<----------Reading and creating the Initial Datasets----------->
 
 ##Reading the Subject Data as 1st Step
-subject_data_test <- read.table("./Assignment/test/subject_test.txt", header=F, col.names=c("subjectId"))
-subject_data_train <- read.table("./Assignment/train/subject_train.txt", header=F, col.names=c("subjectId"))
+subject_data_test <- read.table("./UCI HAR Dataset/test/subject_test.txt", header=F, col.names=c("subjectId"))
+subject_data_train <- read.table("./UCI HAR Dataset/train/subject_train.txt", header=F, col.names=c("subjectId"))
 
 ##Reading the activity Id data from y_test file and y_train file
-y_data_test <- read.table("./Assignment/test/y_test.txt", header=F, col.names=c("activityId"))
-y_data_train <- read.table("./Assignment/train/y_train.txt", header=F, col.names=c("activityId"))
+y_data_test <- read.table("./UCI HAR Dataset/test/y_test.txt", header=F, col.names=c("activityId"))
+y_data_train <- read.table("./UCI HAR Dataset/train/y_train.txt", header=F, col.names=c("activityId"))
 
 ##Reading the features from features file.
-feat_data<-read.table("./Assignment/features.txt", header=F, as.is=T, col.names=c("measureId", "measureName"))
+feat_data<-read.table("./UCI HAR Dataset/features.txt", header=F, as.is=T, col.names=c("measureId", "measureName"))
 
 ##Reading the test and train data file and assigning column headers from Fetures dataframe
-x_data_test<- read.table("./Assignment/test/x_test.txt", header=F, col.names=feat_data$measureName)
-x_data_train<- read.table("./Assignment/train/x_train.txt", header=F, col.names=feat_data$measureName)
+x_data_test<- read.table("./UCI HAR Dataset/test/x_test.txt", header=F, col.names=feat_data$measureName)
+x_data_train<- read.table("./UCI HAR Dataset/train/x_train.txt", header=F, col.names=feat_data$measureName)
 
 ##Activity Labels Read
-activity_labels <- read.table("./Assignment/activity_labels.txt", header=F, as.is=T, col.names=c("activityId", "activityName"))
+activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt", header=F, as.is=T, col.names=c("activityId", "activityName"))
 activity_labels$activityName <- as.factor(activity_labels$activityName)
 
 ##<----------Extracting Mean and Standard Deviation and than merging the dataset----------->
@@ -71,6 +71,7 @@ melted_data <- melt(x_final, id=id_data, measure.vars=measure_data)
 ## Recast by calculating mean for each Subject~Activity combination
 final_file<-dcast(melted_data, activityName + subjectId ~ variable, mean)    
 
-## Creating and saving the tidy data file in the working directory
+## Creating and saving the tidy data file in the working directory?melt
+
 write.table(final_file, "new_tidy_data.txt")
 
